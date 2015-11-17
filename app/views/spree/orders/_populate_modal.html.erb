@@ -1,0 +1,49 @@
+<%#hmm, show this for add on products? unless @product.master.is_add_on_product %>
+<div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="addToCartModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addToCartModalLabel"><%= @product.name %> <%= Spree.t(:added_to_cart) %></h4>
+      </div>
+      <div class="modal-body">
+        
+        <div id="product-images" data-hook="product_images">
+          <div id="main-image" class="panel panel-default" data-hook>
+            <div class="panel-body text-center">
+              <% if defined?(image) && image %>
+                <%= image_tag image.attachment.url(:product), :itemprop => "image", :class => "img-responsive" %>
+              <% else %>
+                <%= product_image(@product, :itemprop => "image") %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="product-description" data-hook="product_description">
+          
+          <div class="well" itemprop="description" data-hook="description">
+            <%= product_description(@product) rescue Spree.t(:product_has_no_description) %>
+          </div>
+       
+        </div>
+
+
+
+
+
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+        <%= link_to Spree.t(:continue_shopping), products_path, {class: 'continue btn btn-default', role: 'button'} %>
+        <%= link_to Spree.t(:go_to_cart), cart_path, {class: 'btn btn-success', role: 'button'} %>
+      </div>
+    </div>
+  </div>
+</div>
+
